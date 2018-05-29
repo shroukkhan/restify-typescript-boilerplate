@@ -12,31 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import App from './src/App';
 
 const dotenv = require('dotenv');
 dotenv.config();
 
-let App;
-let moduleFound = false;
-
-try {
-    App = require('./build/App');
-    moduleFound = true;
-} catch (firstException) {
-    if (firstException.code !== 'MODULE_NOT_FOUND') {
-        throw firstException;
-    }
-    try {
-        App = require('./src/App');
-        moduleFound = true;
-    } catch (secondException) {
-        if (secondException.code !== 'MODULE_NOT_FOUND') {
-            throw secondException;
-        }
-        console.error('[ERROR] Cannot start application: App module is not found.');
-    }
-}
-if (moduleFound) {
-    const instance = new App.default();        
-    instance.start();
-} else process.exit(1); 
+const instance = new App();    
+instance.start();

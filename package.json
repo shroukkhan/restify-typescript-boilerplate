@@ -2,8 +2,8 @@
   "name": "restify-typescript-boilerplate",
   "version": "1.0.0",
   "description": "Boilerplate of Restify API using TypeScript.",
-  "main": "index.js",
-  "repository": "git@github.com:danang-id/restify-typescript-boilerplate.git",
+  "main": "index.ts",
+  "repository": "https://github.com/danang-id/restify-typescript-boilerplate.git",
   "author": "https://github.com/danang-id",
   "license": "Apache-2.0",
   "dependencies": {
@@ -35,7 +35,7 @@
   },
   "scripts": {
     "build": "gulp scripts",
-    "start": "node index.js",
+    "start": "ts-node index.ts",
     "test": "nyc mocha --reporter spec --require ts-node/register 'test/**/*.test.ts'",
     "test:watch": "nyc mocha --watch --reporter spec --require ts-node/register 'test/**/*.test.ts'",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
