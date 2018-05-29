@@ -20,8 +20,8 @@ import * as figlet from 'figlet';
 import Configuration from './Configuration';
 import Console from './Console';
 import Middleware from './Middleware';
-import RavenClient from './RavenClient';
-import Router from './Router';
+import Router from "./Router"; 
+import * as Raven from "raven-js";
 
 export default class App {
 
@@ -40,7 +40,7 @@ export default class App {
             version: this._config.app.version,
         });
         if (this._config.expectsRavenHandler)
-            RavenClient.config(this._config.sentry.DSN, { 
+            Raven.config(this._config.sentry.DSN, { 
                 allowSecretKey: true
             }).install();
         this.mountMiddlewares();
