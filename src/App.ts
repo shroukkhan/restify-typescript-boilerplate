@@ -77,7 +77,7 @@ export default class App {
         }
         if (this._config.expectsRavenHandler) {
             const ex = new Error(`${error}`);
-            RavenClient.captureException(ex, {}, function (sendErr, eventId) {
+            Raven.captureException(ex, function (sendErr, eventId) {
                 if (sendErr) {
                     new Console('warning', `Failed to send captured error to Sentry. ${ sendErr }`);
                 } else {
@@ -117,7 +117,7 @@ export default class App {
         new Console('error', `${error}`);
         if (this._config.expectsRavenHandler) {
             const ex = new Error(`${error}`);
-            RavenClient.captureException(ex, {}, function (sendErr, eventId) {
+            Raven.captureException(ex, function (sendErr, eventId) {
                 if (sendErr) {
                     new Console('warning', `Failed to send captured error to Sentry. ${ sendErr }`);
                 } else {
