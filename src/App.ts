@@ -77,13 +77,8 @@ export default class App {
         }
         if (this._config.expectsRavenHandler) {
             const ex = new Error(`${error}`);
-            Raven.captureException(ex, function (sendErr, eventId) {
-                if (sendErr) {
-                    new Console('warning', `Failed to send captured error to Sentry. ${ sendErr }`);
-                } else {
-                    new Console('info', `Error has been reported to Sentry with Event ID ${eventId}`);
-                }
-            });
+            const eventId = Raven.captureException(ex);
+            new Console("info", `Error has been reported to Sentry with Event ID ${eventId}`);
         }
     }
 
@@ -117,22 +112,19 @@ export default class App {
         new Console('error', `${error}`);
         if (this._config.expectsRavenHandler) {
             const ex = new Error(`${error}`);
-            Raven.captureException(ex, function (sendErr, eventId) {
-                if (sendErr) {
-                    new Console('warning', `Failed to send captured error to Sentry. ${ sendErr }`);
-                } else {
-                    new Console('info', `Error has been reported to Sentry with Event ID ${eventId}`);
-                }
-            });
+            const eventId = Raven.captureException(ex);
+            new Console("info", `Error has been reported to Sentry with Event ID ${eventId}`);
         }
         return callback();
     }
 
     public start(): void {
-        this.server.listen(this._config.server.port);
-        this.server.on('error', this.onError.bind(this));
-        this.server.on('restifyError', this.onRestifyError.bind(this));
-        this.server.on('listening', this.onListening.bind(this));
+        Raven.context(() => {
+            this.server.listen(this._config.server.port);
+            this.server.on('error', this.onError.bind(this));
+            this.server.on('restifyError', this.onRestifyError.bind(this));
+            this.server.on('listening', this.onListening.bind(this));
+        });
     }
 
 }

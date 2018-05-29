@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 const app = new App().server;
 
-describe('baseRoute', () => {
+describe('Hello World Base Route', () => {
 
     it('should be json', () => {
         return chai.request(app).get('/')
