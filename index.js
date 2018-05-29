@@ -16,27 +16,27 @@
 const dotenv = require('dotenv');
 dotenv.config();
 
-let app;
+let App;
 let moduleFound = false;
 
 try {
-    app = require('./build/App');
+    App = require('./build/App');
     moduleFound = true;
-} catch (e1) {
-    if (e1.code !== 'MODULE_NOT_FOUND') {
-        throw e1;
+} catch (firstException) {
+    if (firstException.code !== 'MODULE_NOT_FOUND') {
+        throw firstException;
     }
     try {
-        app = require('./src/App');
+        App = require('./src/App');
         moduleFound = true;
-    } catch (e2) {
-        if (e2.code !== 'MODULE_NOT_FOUND') {
-            throw e2;
+    } catch (secondException) {
+        if (secondException.code !== 'MODULE_NOT_FOUND') {
+            throw secondException;
         }
         console.error('[ERROR] Cannot start application: App module is not found.');
     }
 }
 if (moduleFound) {
-    const appInstance = new app.default();        
-    appInstance.start();
-} else process.exit(1);
+    const instance = new App.default();        
+    instance.start();
+} else process.exit(1); 

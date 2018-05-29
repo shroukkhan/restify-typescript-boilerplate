@@ -52,7 +52,7 @@ export default class Configuration {
         return this._sentry;
     }
 
-    public get ravenHandler(): boolean {
+    public get expectsRavenHandler(): boolean {
         return (null != this._sentry.DSN && '' != this._sentry.DSN);
     }
 

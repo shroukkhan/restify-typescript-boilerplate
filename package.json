@@ -5,11 +5,12 @@
   "main": "index.js",
   "repository": "git@github.com:danang-id/restify-typescript-boilerplate.git",
   "author": "https://github.com/danang-id",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^5.0.1",
     "figlet": "^1.2.0",
+    "moment": "^2.22.1",
     "raven-js": "^3.25.2",
     "restify": "^7.2.0",
     "restify-errors": "^6.0.0"
@@ -24,15 +25,19 @@
     "@types/restify-errors": "^4.3.2",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "coveralls": "^3.0.1",
     "gulp": "^3.9.1",
     "gulp-typescript": "^4.0.2",
     "mocha": "^5.2.0",
+    "nyc": "^11.8.0",
     "ts-node": "^6.0.3",
     "typescript": "^2.8.3"
   },
   "scripts": {
+    "build": "gulp scripts",
     "start": "node index.js",
-    "test": "mocha --reporter spec --require ts-node/register 'test/**/*.test.ts'",
-    "build": "gulp scripts"
+    "test": "nyc mocha --reporter spec --require ts-node/register 'test/**/*.test.ts'",
+    "test:watch": "nyc mocha --watch --reporter spec --require ts-node/register 'test/**/*.test.ts'",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   }
 }
